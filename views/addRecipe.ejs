@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Recipe</title>
+  <link rel="stylesheet" href="../public/styles.css">
+</head>
+<body>
+  <h1>Add a New Recipe</h1>
+  <form action="/api/recipes" method="POST">
+    <label>Title: <input type="text" name="title" required></label><br>
+    <label>Ingredients (comma-separated): <input type="text" name="ingredients" required></label><br>
+    <label>Instructions: <textarea name="instructions" required></textarea></label><br>
+    <label>Category:
+      <select name="categoryId" required>
+        <% categories.forEach(category => { %>
+          <option value="<%= category.id %>"><%= category.name %></option>
+        <% }) %>
+      </select>
+    </label><br>
+    <button type="submit">Add Recipe</button>
+  </form>
+  <a href="/">Back to Home</a>
+</body>
+</html>
+
+
+
