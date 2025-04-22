@@ -1,31 +1,13 @@
-import express from 'express';
+import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { reviews, recipes } from '../data/db.mjs';
+import { categories } from '../data/db.mjs';
+const router = Router();
 
-const router = express.Router();
-
-// GET reviews, filter by recipeId or rating
-router.get('/', (req, res) => {
-  const { recipeId, rating } = req.query;
-  let filteredReviews = reviews;
-  if (recipeId) filteredReviews = filteredReviews.filter(r => r.recipeId === recipeId);
-  if (rating) filteredReviews = filteredReviews.filter(r => r.rating === parseInt(rating));
-  res.json(filteredReviews);
-});
-
-router.post('/', (req, res) => {
-  const { recipeId, rating, comment } = req.body;
-  if (!recipeId || !rating) return res.status(400).json({ error: 'Missing required fields' });
-  if (!recipes.find(r => r.id === recipeId)) {
-    return res.status(400).json({ error: 'Invalid recipe' });
-  }
-  const newReview = { id: uuidv4(), recipeId, rating, comment };
-  reviews.push(newReview);
-  res.status(201).json(newReview);
+router.get('/', (req, res) => res.json(categories));
+router.get('/:id', (req, res) => {
+  const category = categories.find(c => c.id === req.params.id);
+  if (!category) return res.status(404).json({ error: 'Category not found' });
+  res.json(category);
 });
 
 export default router;
-
-
-
-
