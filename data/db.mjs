@@ -1,14 +1,25 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const recipes = [
-  { id: uuidv4(), title: 'Chocolate Cake', ingredients: ['flour', 'sugar'], instructions: 'Bake at 350°F', categoryId: '1' },
-];
-const categories = [
+export const categories = [
   { id: '1', name: 'Dessert', description: 'Sweet treats' },
   { id: '2', name: 'Main Course', description: 'Hearty meals' },
 ];
-const reviews = [
-  { id: uuidv4(), recipeId: recipes[0].id, rating: 5, comment: 'Delicious!' },
+
+export const recipes = [
+  {
+    id: uuidv4(),
+    title: 'Chocolate Cake',
+    ingredients: ['flour', 'sugar', 'cocoa'],
+    instructions: 'Bake at 350°F for 30 minutes',
+    categoryId: '1',
+  },
+  {
+    id: uuidv4(),
+    title: 'Pasta',
+    ingredients: ['pasta', 'sauce', 'cheese'],
+    instructions: 'Boil pasta, add sauce',
+    categoryId: '2',
+  },
 ];
 
-export { recipes, categories, reviews };
+export const reviews = [];
