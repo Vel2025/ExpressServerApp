@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { recipes } from '../data/db.mjs';
+import { recipes, categories } from '../data/db.mjs';
 
 
 const router = Router();
@@ -28,9 +28,9 @@ router.post('/', (req, res) => {
   if (!title || !ingredients || !instructions || !categoryId) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
-  // if (!categoryId.find(c => c.id === categoryId)) {
-  //   return res.status(400).json({ error: 'Invalid category' });
-  // }
+  if (categories.find(c => c.id === categoryId)) {
+    return res.status(400).json({ error: 'Invalid category' });
+  }
   const newRecipe = { id: uuidv4(), title, ingredients, instructions, categoryId };
   recipes.push(newRecipe);
   res.status(201).json(newRecipe);
